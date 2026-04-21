@@ -15,6 +15,10 @@ class PresidentDetailView extends StatefulWidget {
 class _PresidentDetailViewState extends State<PresidentDetailView> {
   late Future<President> _future;
 
+  static const _headers = {
+    'User-Agent': 'Mozilla/5.0 (compatible; FlutterApp/1.0)',
+  };
+
   @override
   void initState() {
     super.initState();
@@ -27,7 +31,7 @@ class _PresidentDetailViewState extends State<PresidentDetailView> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go('/'),
+          onPressed: () => context.go('/presidents'),
         ),
         title: const Text('Detalle Presidente'),
       ),
@@ -60,7 +64,8 @@ class _PresidentDetailViewState extends State<PresidentDetailView> {
                             width: 120,
                             height: 120,
                             fit: BoxFit.cover,
-                            errorBuilder: (_, _, _) => const CircleAvatar(
+                            headers: _headers,
+                            errorBuilder: (_, __, ___) => const CircleAvatar(
                               radius: 60,
                               backgroundColor: Color(0xFFCE1126),
                               child: Icon(

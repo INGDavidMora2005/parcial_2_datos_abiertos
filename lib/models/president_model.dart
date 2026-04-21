@@ -26,7 +26,12 @@ class President {
     startPeriodDate: json['startPeriodDate'],
     endPeriodDate: json['endPeriodDate'],
     politicalParty: json['politicalParty'],
-    image: json['image'],
+    
+    image: (json['image'] == null ||
+            json['image'] == 'null' ||
+            json['image'].toString().trim().isEmpty)
+        ? null
+        : json['image'],
     description: json['description'],
   );
 

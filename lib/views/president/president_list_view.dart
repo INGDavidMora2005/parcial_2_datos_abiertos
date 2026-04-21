@@ -15,6 +15,10 @@ class PresidentListView extends StatefulWidget {
 class _PresidentListViewState extends State<PresidentListView> {
   late Future<List<President>> _future;
 
+  static const _headers = {
+    'User-Agent': 'Mozilla/5.0 (compatible; FlutterApp/1.0)',
+  };
+
   @override
   void initState() {
     super.initState();
@@ -54,11 +58,13 @@ class _PresidentListViewState extends State<PresidentListView> {
               return Card(
                 margin: const EdgeInsets.symmetric(vertical: 6),
                 child: ListTile(
-                  leading:
-                      president.image != null && president.image!.isNotEmpty
+                  leading: president.image != null && president.image!.isNotEmpty
                       ? CircleAvatar(
-                          backgroundImage: NetworkImage(president.image!),
-                          onBackgroundImageError: (_, _) {},
+                          backgroundImage: NetworkImage(
+                            president.image!,
+                            headers: _headers,
+                          ),
+                          onBackgroundImageError: (_, __) {},
                         )
                       : CircleAvatar(
                           backgroundColor: const Color(0xFFCE1126),
