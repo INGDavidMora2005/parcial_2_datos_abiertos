@@ -1,17 +1,64 @@
-# parcial_2_datos_abiertos
+# 🇨🇴 Colombia Open Data - Flutter App
 
-A new Flutter project.
+## Descripción
+Aplicación Flutter que consume la API pública de Colombia (https://api-colombia.com) para mostrar información sobre los datos abiertos del país.
 
-## Getting Started
+## Endpoints utilizados
+| Endpoint | Descripción | URL |
+|----------|-------------|-----|
+| /Department | Departamentos de Colombia | https://api-colombia.com/api/v1/Department |
+| /President | Presidentes de Colombia | https://api-colombia.com/api/v1/President |
+| /Region | Regiones naturales | https://api-colombia.com/api/v1/Region |
+| /TouristicAttraction | Atractivos turísticos | https://api-colombia.com/api/v1/TouristicAttraction |
+| /Holiday/{year} | Festivos por año | https://api-colombia.com/api/v1/Holiday/2024 |
 
-This project is a starting point for a Flutter application.
+## Arquitectura del proyecto
+lib/
+├── config/          # Variables de entorno (dotenv)
+├── models/          # Modelos con fromJson/toJson
+├── routes/          # Configuración de go_router
+├── services/        # Llamadas HTTP con manejo de errores
+├── themes/          # Tema global con colores de Colombia
+├── views/           # Pantallas: Dashboard, Listado, Detalle
+└── widgets/         # Componentes reutilizables
 
-A few resources to get you started if this is your first Flutter project:
+## Paquetes utilizados
+- `http` ^1.2.1 — Consumo de API REST
+- `go_router` ^14.2.0 — Navegación declarativa
+- `flutter_dotenv` ^5.1.0 — Variables de entorno
+- `shimmer` ^3.0.0 — Efecto de carga
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## Rutas implementadas con go_router
+| Nombre | Path | Parámetros | Descripción |
+|--------|------|-----------|-------------|
+| dashboard | / | - | Pantalla principal con cards |
+| departments | /departments | - | Listado de departamentos |
+| department-detail | /departments/:id | id (int) | Detalle de departamento |
+| presidents | /presidents | - | Listado de presidentes |
+| president-detail | /presidents/:id | id (int) | Detalle de presidente |
+| regions | /regions | - | Listado de regiones |
+| region-detail | /regions/:id | id (int) | Detalle de región |
+| touristic-attractions | /touristic-attractions | - | Listado de atractivos |
+| touristic-attraction-detail | /touristic-attractions/:id | id (int) | Detalle de atractivo |
+| holidays | /holidays | - | Festivos del año seleccionado |
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Ejemplo JSON de respuesta - Department
+```json
+[
+  {
+    "id": 1,
+    "name": "Amazonas",
+    "description": "Departamento colombiano ubicado al sur del país",
+    "regionId": 5,
+    "surface": "109665",
+    "population": 76243,
+    "phonePrefix": "+578",
+    "postalCode": "910001"
+  }
+]
+```
+
+## Manejo de estados
+- **Loading**: Efecto shimmer mientras carga
+- **Success**: ListView.builder con datos
+- **Error**: Widget de error con botón reintentar
